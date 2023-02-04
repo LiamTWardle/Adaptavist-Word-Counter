@@ -29,3 +29,9 @@ Using Java 17 as it's the latest LTS version.
 
 Begin by making a gradle project using VS Code. Using gradle might be overkill for a small project
 like this, but this seemed like a good opportunity to try it.
+
+Next, make a minimum viable product without worrying too much efficiency or features (first make it
+work, then make it good).
+
+Start by making a class to keep track of the word counts. The class is fed the text one line at a
+time and stores the results in a HashMap (there might be choices for this in terms of speed).
