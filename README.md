@@ -60,3 +60,8 @@ assumptions about the format as possible (hence only checking the first part of 
 Time to actually use what's been written so far. Use a Scanner to read the file, as this does not
 keep the full file in memory (which will be good for larger files). Put some basic exception
 handling in for the most obvious cases (still need to handle binary files somehow).
+
+### Handle binary files
+
+It's surpringly difficult to tell if a file is binary or not. I checked online and it seems that
+the best solution is to check the file's mime type.
