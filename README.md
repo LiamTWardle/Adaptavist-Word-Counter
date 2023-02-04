@@ -1,12 +1,14 @@
 # Adaptavist Word Counter
 
-## Requirements
+## Plan
+
+### Requirements
 
 - Take a file path as an input.
 - Count frequency of each word in file.
 - Sort output by frequency (most frequent first).
 
-## Assumptions
+### Assumptions
 
 - Ignore case and punctuation
     - i.e. "foo" "Foo" and "foo." should all be counted as the same word.
@@ -16,22 +18,38 @@
     - Too many arguments.
     - Not a text file.
 
-## Stretch goals
+### Stretch goals
 
 - Help text.
 - Output to file.
 - Sort alphabetically option.
+- Sort alphabetically if frequencies are equal.
 - Format output into columns.
 
 ## Diary
+
+### Initial Commit
 
 Using Java 17 as it's the latest LTS version.
 
 Begin by making a gradle project using VS Code. Using gradle might be overkill for a small project
 like this, but this seemed like a good opportunity to try it.
 
+### Store word counts in hashmap
+
 Next, make a minimum viable product without worrying too much efficiency or features (first make it
 work, then make it good).
 
 Start by making a class to keep track of the word counts. The class is fed the text one line at a
 time and stores the results in a HashMap (there might be choices for this in terms of speed).
+
+### Order word counts by frequency
+
+It makes sense to split up the tasks of counting the words from formatting them, so make a new
+class. This class is responsible for any formatting or sorting. Initially I planned to have this
+class also print the results, but that would make testing it a pain. Instead, this returns a simple
+string array that can be printed elsewhere.
+
+As I might want to add options for how the output is sorted and formatted, split these two tasks
+into separate functions. This also means the test asserting the data is ordered should make as few
+assumptions about the format as possible (hence only checking the first part of the string).
