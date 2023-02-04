@@ -3,12 +3,56 @@
  */
 package adaptavist.wordcounter;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+
+    private static WordCounter wordCounter;
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        if (args.length != 1) {
+            System.err.println("ERROR: Expected only one argument");
+        }
+        wordCounter = new WordCounter();
+        try {
+            readFile(args[0]);
+        } catch (IOException e) {
+            System.err.println("ERROR: A problem occured reading the file");
+            System.err.println(e.getMessage());
+            return;
+        }
+        printOutput();
+    }
+
+    private static void readFile (String filePath) throws IOException {
+        FileInputStream inputStream = null;
+        Scanner sc = null;
+        try {
+            inputStream = new FileInputStream(filePath);
+            sc = new Scanner(inputStream, "UTF-8");
+            while (sc.hasNextLine()) {
+                wordCounter.CountWords(sc.nextLine());
+            }
+            if (sc.ioException() != null) {
+                throw sc.ioException();
+            }
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+            if (sc != null) {
+                sc.close();
+            }
+        }
+    }
+
+    private static void printOutput () {
+        var wordCountFormatter = new WordCountFormatter();
+        var output = wordCountFormatter.FormatWordCounts(wordCounter.GetWordCounts());
+        for (var line : output) {
+            System.out.println(line);
+        }
     }
 }

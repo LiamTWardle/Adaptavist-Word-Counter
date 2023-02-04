@@ -17,6 +17,7 @@
     - Missing argument.
     - Too many arguments.
     - Not a text file.
+- Do not assume anything about file size.
 
 ### Stretch goals
 
@@ -53,3 +54,9 @@ string array that can be printed elsewhere.
 As I might want to add options for how the output is sorted and formatted, split these two tasks
 into separate functions. This also means the test asserting the data is ordered should make as few
 assumptions about the format as possible (hence only checking the first part of the string).
+
+### Use command line argument to load file and count words
+
+Time to actually use what's been written so far. Use a Scanner to read the file, as this does not
+keep the full file in memory (which will be good for larger files). Put some basic exception
+handling in for the most obvious cases (still need to handle binary files somehow).
