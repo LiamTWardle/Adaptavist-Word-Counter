@@ -65,3 +65,8 @@ handling in for the most obvious cases (still need to handle binary files someho
 
 It's surpringly difficult to tell if a file is binary or not. I checked online and it seems that
 the best solution is to check the file's mime type.
+
+### Refactor and test file reading
+
+The main method was getting a bit too complicated. Refactor any file reading to a new class so it
+can be unit tested.
