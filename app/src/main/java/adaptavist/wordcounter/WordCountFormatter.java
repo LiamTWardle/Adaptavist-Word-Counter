@@ -8,19 +8,28 @@ import java.util.stream.Stream;
 
 public class WordCountFormatter {
 
-    public String[] FormatWordCounts(Map<String, Integer> wordCounts, SortBy sortBy) {
-        var sortedWordCounts = sortWordCounts(wordCounts, sortBy);
+    public String[] FormatWordCounts(Map<String, Integer> wordCounts, SortBy sortBy, Order order) {
+        var sortedWordCounts = sortWordCounts(wordCounts, sortBy, order);
         return formatWordCounts(sortedWordCounts);
     }
 
-    private LinkedHashMap<String, Integer> sortWordCounts(Map<String, Integer> wordCounts, SortBy sortBy) {
+    private LinkedHashMap<String, Integer> sortWordCounts(Map<String, Integer> wordCounts, SortBy sortBy, Order order) {
+        var stream = wordCounts.entrySet().stream();
         Stream<Entry<String, Integer>> sorted = null;
         switch (sortBy) {
             case FREQUENCY:
-                sorted =  wordCounts.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+                if (order == Order.ASC) {
+                    sorted =  stream.sorted(Map.Entry.comparingByValue());
+                } else {
+                    sorted = stream.sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+                }
                 break;
             case ALPHABETICALLY:
-                sorted =  wordCounts.entrySet().stream().sorted(Map.Entry.comparingByKey());
+                if (order == Order.ASC) {
+                    sorted =  stream.sorted(Map.Entry.comparingByKey());
+                } else {
+                    sorted = stream.sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()));
+                }
                 break;
             default:
                 throw new RuntimeException("Unexpected ordering: " + sortBy);
