@@ -78,3 +78,9 @@ Not much to say here, just a matter of finding the right bit of regex. It could 
 these optional. I can imagine a case sensitive word count being useful. I'm not sure why you would
 ever want to leave the punctuation in, but if it's not much work then I should make this optional
 too.
+
+### Read output file from command line arguments
+
+This new Options class should be flexible enough to handle multiple kinds of options, without
+needing to worry about the order they're in. I've been trying to avoid having any class other than
+App print to the terminal, so store any errors that occur in a list.
