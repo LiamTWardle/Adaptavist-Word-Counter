@@ -3,19 +3,30 @@ package adaptavist.wordcounter;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Stream;
 
 public class WordCountFormatter {
 
-    public String[] FormatWordCounts(Map<String, Integer> wordCounts) {
-        var sortedWordCounts = sortWordCounts(wordCounts);
+    public String[] FormatWordCounts(Map<String, Integer> wordCounts, SortBy sortBy) {
+        var sortedWordCounts = sortWordCounts(wordCounts, sortBy);
         return formatWordCounts(sortedWordCounts);
     }
 
-    private LinkedHashMap<String, Integer> sortWordCounts(Map<String, Integer> wordCounts) {
+    private LinkedHashMap<String, Integer> sortWordCounts(Map<String, Integer> wordCounts, SortBy sortBy) {
+        Stream<Entry<String, Integer>> sorted = null;
+        switch (sortBy) {
+            case FREQUENCY:
+                sorted =  wordCounts.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+                break;
+            case ALPHABETICALLY:
+                sorted =  wordCounts.entrySet().stream().sorted(Map.Entry.comparingByKey());
+                break;
+            default:
+                throw new RuntimeException("Unexpected ordering: " + sortBy);
+        }
         var sortedWordCounts = new LinkedHashMap<String, Integer>();
-        wordCounts.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .forEachOrdered(wc -> sortedWordCounts.put(wc.getKey(), wc.getValue()));
+        sorted.forEachOrdered(wc -> sortedWordCounts.put(wc.getKey(), wc.getValue()));
         return sortedWordCounts;
     }
 

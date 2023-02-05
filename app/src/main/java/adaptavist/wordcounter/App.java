@@ -33,12 +33,12 @@ public class App {
             return;
         }
 
-        printOutput(wordCount, fileHelper, options.getOutputFile());
+        printOutput(wordCount, fileHelper, options.getOutputFile(), options.getSortBy());
     }
 
-    private static void printOutput (Map<String,Integer> wordCounter, FileHelper fileHelper, String outputFile) {
+    private static void printOutput (Map<String,Integer> wordCounter, FileHelper fileHelper, String outputFile, SortBy sortBy) {
         var wordCountFormatter = new WordCountFormatter();
-        var output = wordCountFormatter.FormatWordCounts(wordCounter);
+        var output = wordCountFormatter.FormatWordCounts(wordCounter, sortBy);
         if (outputFile != "") {
             try {
                 fileHelper.PrintToFile(output, outputFile);
