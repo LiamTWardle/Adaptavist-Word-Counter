@@ -3,7 +3,7 @@ package adaptavist.wordcounter;
 import java.io.IOException;
 import java.util.Map;
 
-public class App {
+public class AdaptavistWordCounter {
 
     public static void main(String[] args) {
 
