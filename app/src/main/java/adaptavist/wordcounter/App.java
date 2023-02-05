@@ -6,15 +6,18 @@ import java.util.Map;
 public class App {
 
     public static void main(String[] args) {
-        if (args.length != 1) {
-            System.err.println("ERROR: Expected only one argument");
+
+        var options = new Options();
+        if (!options.Parse(args)) {
+            for (var error : options.getErrors()) {
+                System.err.println(error);
+            }
             return;
         }
 
-        var filePath = args[0];
         var fileHelper = new FileHelper();
         try {
-            fileHelper.CheckFilePathIsOk(filePath);
+            fileHelper.CheckFilePathIsOk(options.getInputFile());
         } catch (IOException e) {
             System.err.println("ERROR: There is a problem with the input file");
             System.err.println(e.getMessage());
@@ -23,21 +26,30 @@ public class App {
 
         Map<String,Integer> wordCount = null;
         try {
-            wordCount = fileHelper.CountWordsInFile(filePath);
+            wordCount = fileHelper.CountWordsInFile(options.getInputFile());
         } catch (IOException e) {
             System.err.println("ERROR: A problem occured reading the file");
             System.err.println(e.getMessage());
             return;
         }
 
-        printOutput(wordCount);
+        printOutput(wordCount, fileHelper, options.getOutputFile());
     }
 
-    private static void printOutput (Map<String,Integer> wordCounter) {
+    private static void printOutput (Map<String,Integer> wordCounter, FileHelper fileHelper, String outputFile) {
         var wordCountFormatter = new WordCountFormatter();
         var output = wordCountFormatter.FormatWordCounts(wordCounter);
-        for (var line : output) {
-            System.out.println(line);
+        if (outputFile != "") {
+            try {
+                fileHelper.PrintToFile(output, outputFile);
+            } catch (IOException e) {
+                System.err.println("ERROR: A problem occured writing to the file");
+                e.getMessage();
+            }
+        } else {
+            for (var line : output) {
+                System.out.println(line);
+            }
         }
     }
 }
