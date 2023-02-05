@@ -84,3 +84,15 @@ too.
 This new Options class should be flexible enough to handle multiple kinds of options, without
 needing to worry about the order they're in. I've been trying to avoid having any class other than
 App print to the terminal, so store any errors that occur in a list.
+
+### Read sort alphabetically from command line arguments
+
+Alphabetical flag can be added with others in any order. I couldn't decide if this should be
+"alphabetical" or "alphabetically" so I've included both.
+
+## Read order from command line arguments
+
+Add an option to sort ascending/descending. It seems natural that the default order should be
+ascending when alphabetical, but the spec requires descending as default when sorting by
+frequency. To get round this I've added a boolean to mark if the order has been manually set,
+otherwise the default changes when using the alphabetical flag.

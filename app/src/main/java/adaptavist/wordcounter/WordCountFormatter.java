@@ -3,19 +3,39 @@ package adaptavist.wordcounter;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Stream;
 
 public class WordCountFormatter {
 
-    public String[] FormatWordCounts(Map<String, Integer> wordCounts) {
-        var sortedWordCounts = sortWordCounts(wordCounts);
+    public String[] FormatWordCounts(Map<String, Integer> wordCounts, SortBy sortBy, Order order) {
+        var sortedWordCounts = sortWordCounts(wordCounts, sortBy, order);
         return formatWordCounts(sortedWordCounts);
     }
 
-    private LinkedHashMap<String, Integer> sortWordCounts(Map<String, Integer> wordCounts) {
+    private LinkedHashMap<String, Integer> sortWordCounts(Map<String, Integer> wordCounts, SortBy sortBy, Order order) {
+        var stream = wordCounts.entrySet().stream();
+        Stream<Entry<String, Integer>> sorted = null;
+        switch (sortBy) {
+            case FREQUENCY:
+                if (order == Order.ASC) {
+                    sorted =  stream.sorted(Map.Entry.comparingByValue());
+                } else {
+                    sorted = stream.sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+                }
+                break;
+            case ALPHABETICALLY:
+                if (order == Order.ASC) {
+                    sorted =  stream.sorted(Map.Entry.comparingByKey());
+                } else {
+                    sorted = stream.sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()));
+                }
+                break;
+            default:
+                throw new RuntimeException("Unexpected ordering: " + sortBy);
+        }
         var sortedWordCounts = new LinkedHashMap<String, Integer>();
-        wordCounts.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .forEachOrdered(wc -> sortedWordCounts.put(wc.getKey(), wc.getValue()));
+        sorted.forEachOrdered(wc -> sortedWordCounts.put(wc.getKey(), wc.getValue()));
         return sortedWordCounts;
     }
 
