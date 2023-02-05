@@ -89,3 +89,10 @@ App print to the terminal, so store any errors that occur in a list.
 
 Alphabetical flag can be added with others in any order. I couldn't decide if this should be
 "alphabetical" or "alphabetically" so I've included both.
+
+## Read order from command line arguments
+
+Add an option to sort ascending/descending. It seems natural that the default order should be
+ascending when alphabetical, but the spec requires descending as default when sorting by
+frequency. To get round this I've added a boolean to mark if the order has been manually set,
+otherwise the default changes when using the alphabetical flag.
