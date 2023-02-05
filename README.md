@@ -18,6 +18,7 @@
     - Too many arguments.
     - Not a text file.
 - Do not assume anything about file size.
+- Do not assume anything about language (i.e. handle non-english characters).
 
 ### Stretch goals
 
@@ -70,3 +71,10 @@ the best solution is to check the file's mime type.
 
 The main method was getting a bit too complicated. Refactor any file reading to a new class so it
 can be unit tested.
+
+### Ignore case and punctuation
+
+Not much to say here, just a matter of finding the right bit of regex. It could be handy to make
+these optional. I can imagine a case sensitive word count being useful. I'm not sure why you would
+ever want to leave the punctuation in, but if it's not much work then I should make this optional
+too.
