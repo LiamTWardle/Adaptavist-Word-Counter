@@ -43,4 +43,8 @@ public class FileHelper {
         }
         return wordCounter.GetWordCounts();
     }
+
+    public void PrintToFile(String[] output, String outputFile) {
+        // TODO
+    }
 }
