@@ -50,4 +50,18 @@ class WordCounterTest {
         assertEquals(4, wordCounts.get("bar"));
         assertEquals(1, wordCounts.get("lorum"));
     }
+
+    @Test
+    public void wordCounterDoesNotIgnoreNonEnglishCharacters() {
+        var wordCounter = new WordCounter();
+        wordCounter.CountWords("fωω fωω bàr foo");
+        wordCounter.CountWords("fωω foo foo bàr bar");
+        wordCounter.CountWords("foo lorum bar foo");
+        var wordCounts = wordCounter.GetWordCounts();
+        assertEquals(5, wordCounts.get("foo"));
+        assertEquals(3, wordCounts.get("fωω"));
+        assertEquals(2, wordCounts.get("bar"));
+        assertEquals(2, wordCounts.get("bàr"));
+        assertEquals(1, wordCounts.get("lorum"));
+    }
 }

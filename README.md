@@ -18,6 +18,7 @@
     - Too many arguments.
     - Not a text file.
 - Do not assume anything about file size.
+- Do not assume anything about language (i.e. handle non-english characters).
 
 ### Stretch goals
 
