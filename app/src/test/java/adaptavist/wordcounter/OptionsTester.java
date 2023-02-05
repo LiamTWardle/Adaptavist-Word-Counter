@@ -36,4 +36,14 @@ class OptionsTester {
         assertFalse(options.Parse(args));
         assertTrue(options.getErrors().size() > 0);
     }
+
+    @Test
+    public void sortAlphabeticallyParsedFromArgument() {
+        var options = new Options();
+        String[] args = {validInputFile, "--alphabetical"};
+        assertTrue(options.Parse(args));
+        assertTrue(options.getErrors().size() == 0);
+        assertEquals(validInputFile, options.getInputFile());
+        assertEquals(SortBy.ALPHABETICALLY, options.getSortBy());
+    }
 }

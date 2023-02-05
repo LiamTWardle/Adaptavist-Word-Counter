@@ -13,6 +13,11 @@ public class Options {
     private static final String OUTPUT_OPT_SHORT = "-o";
     private String outputFile = "";
 
+    private static final String ALPHABETICALLY_OPT = "--alphabetically";
+    private static final String ALPHABETICALLY_OPT_ALT = "--alphabetical";
+    private static final String ALPHABETICALLY_OPT_SHORT = "-a";
+    private SortBy sortBy = SortBy.FREQUENCY;
+
     public boolean Parse (String[] args) {
         if (args == null || args.length == 0) {
             errors.add("Input file not specified");
@@ -24,6 +29,11 @@ public class Options {
                 case OUTPUT_OPT_SHORT:
                     parseOutput(args, i);
                     i++;
+                    break;
+                case ALPHABETICALLY_OPT:
+                case ALPHABETICALLY_OPT_ALT:
+                case ALPHABETICALLY_OPT_SHORT:
+                    parseAlphabetically();
                     break;
                 default:
                     parseInput(args, i);
@@ -55,6 +65,10 @@ public class Options {
         outputFile = args[i + 1];
     }
 
+    private void parseAlphabetically() {
+        sortBy = SortBy.ALPHABETICALLY;
+    }
+
     public List<String> getErrors() {
         return errors;
     }
@@ -65,5 +79,9 @@ public class Options {
 
     public String getOutputFile() {
         return outputFile;
+    }
+
+    public SortBy getSortBy() {
+        return sortBy;
     }
 }

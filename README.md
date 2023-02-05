@@ -84,3 +84,8 @@ too.
 This new Options class should be flexible enough to handle multiple kinds of options, without
 needing to worry about the order they're in. I've been trying to avoid having any class other than
 App print to the terminal, so store any errors that occur in a list.
+
+### Read sort alphabetically from command line arguments
+
+Alphabetical flag can be added with others in any order. I couldn't decide if this should be
+"alphabetical" or "alphabetically" so I've included both.
