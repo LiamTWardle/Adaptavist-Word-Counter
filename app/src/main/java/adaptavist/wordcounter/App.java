@@ -40,7 +40,12 @@ public class App {
         var wordCountFormatter = new WordCountFormatter();
         var output = wordCountFormatter.FormatWordCounts(wordCounter);
         if (outputFile != "") {
-            fileHelper.PrintToFile(output, outputFile);
+            try {
+                fileHelper.PrintToFile(output, outputFile);
+            } catch (IOException e) {
+                System.err.println("ERROR: A problem occured writing to the file");
+                e.getMessage();
+            }
         } else {
             for (var line : output) {
                 System.out.println(line);

@@ -2,6 +2,7 @@ package adaptavist.wordcounter;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Map;
@@ -44,7 +45,18 @@ public class FileHelper {
         return wordCounter.GetWordCounts();
     }
 
-    public void PrintToFile(String[] output, String outputFile) {
-        // TODO
+    public void PrintToFile(String[] output, String outputFile) throws IOException {
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(outputFile);
+            for (var line : output) {
+                line += "\n";
+                outputStream.write(line.getBytes());
+            }
+        } finally {
+            if (outputStream != null) {
+                outputStream.close();
+            }
+        }
     }
 }
