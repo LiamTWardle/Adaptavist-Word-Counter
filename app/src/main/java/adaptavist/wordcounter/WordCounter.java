@@ -12,7 +12,7 @@ public class WordCounter {
     }
 
     public void CountWords(String line) {
-        var words = line.split("\\s+");
+        var words = line.replaceAll("[^\\p{L} ]", "").toLowerCase().split("\\s+");
         for (var word : words) {
             wordCounts.put(word, wordCounts.getOrDefault(word, 0) + 1);
         }

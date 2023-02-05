@@ -26,4 +26,28 @@ class WordCounterTest {
         assertEquals(4, wordCounts.get("bar"));
         assertEquals(1, wordCounts.get("lorum"));
     }
+
+    @Test
+    public void wordCounterIgnoresCase() {
+        var wordCounter = new WordCounter();
+        wordCounter.CountWords("FOo Foo bAr foo");
+        wordCounter.CountWords("foO LOrum bar foo");
+        wordCounter.CountWords("fOo FOO foo BAr BAR");
+        var wordCounts = wordCounter.GetWordCounts();
+        assertEquals(8, wordCounts.get("foo"));
+        assertEquals(4, wordCounts.get("bar"));
+        assertEquals(1, wordCounts.get("lorum"));
+    }
+
+    @Test
+    public void wordCounterIgnoresPunctuation() {
+        var wordCounter = new WordCounter();
+        wordCounter.CountWords("foo foo bar foo.");
+        wordCounter.CountWords("foo fo'o   foo, bar bar");
+        wordCounter.CountWords("foo lorum!! bar foo!?");
+        var wordCounts = wordCounter.GetWordCounts();
+        assertEquals(8, wordCounts.get("foo"));
+        assertEquals(4, wordCounts.get("bar"));
+        assertEquals(1, wordCounts.get("lorum"));
+    }
 }
