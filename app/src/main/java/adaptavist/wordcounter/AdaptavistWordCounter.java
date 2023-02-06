@@ -9,6 +9,10 @@ public class AdaptavistWordCounter {
 
         var options = new Options();
         if (!options.Parse(args)) {
+            System.out.print(options.getHelpText());
+            if (options.isShowHelp()) {
+                return;
+            }
             for (var error : options.getErrors()) {
                 System.err.println(error);
             }

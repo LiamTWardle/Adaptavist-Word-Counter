@@ -22,6 +22,10 @@ public class Options {
     private Order order = Order.DESC;
     private boolean orderSpecified = false;
 
+    private static final String HELP_OPT = "--help";
+    private static final String HELP_OPT_SHORT = "-h";
+    private boolean showHelp = false;
+
     public boolean Parse (String[] args) {
         if (args == null || args.length == 0) {
             errors.add("Input file not specified");
@@ -42,6 +46,10 @@ public class Options {
                 case ORDER_OPT:
                     parseOrder(args, i);
                     i++;
+                    break;
+                case HELP_OPT:
+                case HELP_OPT_SHORT:
+                    parseHelp();
                     break;
                 default:
                     parseInput(args, i);
@@ -108,6 +116,20 @@ public class Options {
         orderSpecified = true;
     }
 
+    private void parseHelp() {
+        showHelp = true;
+    }
+
+    public String getHelpText() {
+        return "USAGE: java -jar AdaptavistWordCounter.jar [options] input_file_path\n"
+                + "  options:\n"
+                + "    " + HELP_OPT_SHORT + ", " + HELP_OPT + ":              show this help message.\n"
+                + "    " + OUTPUT_OPT_SHORT + ", " + OUTPUT_OPT + ":            file to write output to.\n"
+                + "    " + ALPHABETICALLY_OPT_SHORT + ", " + ALPHABETICALLY_OPT + ":    sort alphabetically (default ascending).\n"
+                + "    " + ORDER_OPT + ":                 order results ascending or descending.\n"
+                ;
+    }
+
     public List<String> getErrors() {
         return errors;
     }
@@ -126,5 +148,9 @@ public class Options {
 
     public Order getOrder() {
         return order;
+    }
+
+    public boolean isShowHelp() {
+        return showHelp;
     }
 }
