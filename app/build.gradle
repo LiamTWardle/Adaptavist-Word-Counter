@@ -26,10 +26,17 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'adaptavist.wordcounter.App'
+    mainClass = 'adaptavist.wordcounter.AdaptavistWordCounter'
 }
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+jar {
+  manifest {
+    attributes 'Main-Class': application.mainClass
+  }
+  baseName 'AdaptavistWordCounter'
 }

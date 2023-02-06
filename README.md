@@ -1,31 +1,24 @@
 # Adaptavist Word Counter
 
-## Requirements
+## Build Instructions
 
-- Take a file path as an input.
-- Count frequency of each word in file.
-- Sort output by frequency (most frequent first).
+The following will build an executable jar in `app/build/libs`.
 
-## Assumptions
+```
+./gradlew build
+```
 
-- Ignore case and punctuation
-    - i.e. "foo" "Foo" and "foo." should all be counted as the same word.
-- Do not assume application will be run with sensible arguments. Handle these cases:
-    - Incorrect file path.
-    - Missing argument.
-    - Too many arguments.
-    - Not a text file.
+## Usage
 
-## Stretch goals
+```
+USAGE: java -jar AdaptavistWordCounter.jar [options] input_file_path
+  options:
+    -h, --help:              show this help message.
+    -o, --output:            file to write output to.
+    -a, --alphabetically:    sort alphabetically (default ascending).
+    --order:                 order results ascending or descending.
+```
 
-- Help text.
-- Output to file.
-- Sort alphabetically option.
-- Format output into columns.
+## Development Notes
 
-## Diary
-
-Using Java 17 as it's the latest LTS version.
-
-Begin by making a gradle project using VS Code. Using gradle might be overkill for a small project
-like this, but this seemed like a good opportunity to try it.
+See DIARY.md
